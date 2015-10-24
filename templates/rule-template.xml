@@ -1,7 +1,0 @@
-<insert tableName="providerCostRule">
-    <column name="name" value=":name"/>
-    <column name="idProvider" value=":idProvider"/>
-    <column name="tsActive" value=":tsActive"/>
-    <column name="rule"
-            value='{"if":{".countryCode":"PH"},"taxRate":12,"shareRate":39.52,"isTaxPaid":1,"isFeePaid":1,"isNetShare":1}'/>
-</insert>

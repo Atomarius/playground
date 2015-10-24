@@ -1,6 +1,0 @@
-<?php
-return [
-    'dns' => 'mysql:host=db03-master.paymentbackend.de.ggs-net.com;port=3306;dbname=shop',
-    'username' => 'username',
-    'passwd' => 'passwd',
-];
