@@ -24,4 +24,9 @@ class Currency
     {
         return $this->isoCode;
     }
+
+    public function equals(Currency $currency)
+    {
+        return $currency->isoCode === $this->isoCode();
+    }
 }

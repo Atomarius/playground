@@ -5,6 +5,7 @@ namespace DDD;
 class Money
 {
     private $amount;
+    /** @var Currency */
     private $currency;
 
     public function __construct($anAmount, Currency $aCurrency)
@@ -41,5 +42,12 @@ class Money
     public static function ofCurrency(Currency $aCurrency)
     {
         return new self(0, $aCurrency);
+    }
+
+    public function equals(Money $money)
+    {
+        return
+            $money->currency->equals($this->currency) &&
+            $money->amount === $this->amount;
     }
 }
