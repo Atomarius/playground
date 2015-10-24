@@ -50,4 +50,15 @@ class Money
             $money->currency->equals($this->currency) &&
             $money->amount === $this->amount;
     }
+
+    public function add(Money $money)
+    {
+        if (!$money->currency->equals($this->currency)) {
+            throw new \InvalidArgumentException();
+        }
+        return new self(
+            $money->amount + $this->amount,
+            $this->currency
+        );
+    }
 }
