@@ -32,4 +32,14 @@ class Money
     {
         return $this->currency;
     }
+
+    public static function fromMoney(Money $aMoney)
+    {
+        return new self($aMoney->amount, $aMoney->currency);
+    }
+
+    public static function ofCurrency(Currency $aCurrency)
+    {
+        return new self(0, $aCurrency);
+    }
 }
