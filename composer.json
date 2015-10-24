@@ -1,0 +1,15 @@
+{
+  "name": "elsuperbeano/playground",
+  "description": "Just to play around",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "ElSuperbeano",
+      "email": "marius.schuette@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": { "DDD\\": ["src/", "tests/"] }
+  }
+}
