@@ -1,18 +1,28 @@
 <?php
 
-namespace DDD;
+namespace DDD\MoneyPublicMethod;
 
 use DDD\Currency;
 
 class Money
 {
-    protected $amount;
+    private $amount;
     /** @var Currency */
-    protected $currency;
+    private $currency;
 
     public function __construct($anAmount, Currency $aCurrency)
     {
-        $this->amount = (int) $anAmount;
+        $this->setAmount($anAmount);
+        $this->setCurrency($aCurrency);
+    }
+
+    private function setAmount($anAmount)
+    {
+        $this->amount = (int)$anAmount;
+    }
+
+    private function setCurrency(Currency $aCurrency)
+    {
         $this->currency = $aCurrency;
     }
 
@@ -28,7 +38,7 @@ class Money
 
     public static function fromMoney(Money $aMoney)
     {
-        return new self($aMoney->amount, $aMoney->currency);
+        return new self($aMoney->amount(), $aMoney->currency());
     }
 
     public static function ofCurrency(Currency $aCurrency)
@@ -39,18 +49,18 @@ class Money
     public function equals(Money $money)
     {
         return
-            $money->currency->equals($this->currency) &&
-            $money->amount === $this->amount;
+            $money->currency()->equals($this->currency()) &&
+            $money->amount() === $this->amount();
     }
 
     public function add(Money $money)
     {
-        if (!$money->currency->equals($this->currency)) {
+        if (!$money->currency()->equals($this->currency())) {
             throw new \InvalidArgumentException();
         }
         return new self(
-            $money->amount + $this->amount,
-            $this->currency
+            $money->amount() + $this->amount(),
+            $this->currency()
         );
     }
 }

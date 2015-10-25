@@ -1,6 +1,6 @@
 <?php
 
-namespace DDD;
+namespace DDD\MoneyNotImmutable;
 
 use DDD\Currency;
 
@@ -48,9 +48,8 @@ class Money
         if (!$money->currency->equals($this->currency)) {
             throw new \InvalidArgumentException();
         }
-        return new self(
-            $money->amount + $this->amount,
-            $this->currency
-        );
+        $this->amount *= $money->amount;
+
+        return $this;
     }
 }
