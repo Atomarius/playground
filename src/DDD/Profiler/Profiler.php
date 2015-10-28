@@ -16,7 +16,7 @@ abstract class Profiler
      */
     protected function addMessage($class, $method, $average)
     {
-        $this->messages[] = sprintf("%s - $average", str_replace(__CLASS__, $class, $method));
+        $this->messages[] = sprintf("%s - $average", str_replace(get_class($this), $class, $method));
     }
 
     /**

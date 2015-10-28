@@ -8,7 +8,7 @@ class MoneyProfiler extends Profiler
 {
     protected $classes = array(
         '\DDD\MoneyDirectAccess\Money',
-        '\DDD\MoneyPublicMethod\Money',
+        '\DDD\MoneyAccessMethod\Money',
     );
 
     private $messages = array();

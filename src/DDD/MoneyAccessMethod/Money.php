@@ -1,6 +1,6 @@
 <?php
 
-namespace DDD\MoneyPublicMethod;
+namespace DDD\MoneyAccessMethod;
 
 use DDD\Currency;
 
