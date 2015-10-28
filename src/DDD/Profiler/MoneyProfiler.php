@@ -4,7 +4,7 @@ namespace DDD\Profiler;
 use DDD\Currency;
 use DDD\Money;
 
-class MoneyProfiler
+class MoneyProfiler extends Profiler
 {
     protected $classes = array(
         '\DDD\MoneyDirectAccess\Money',
@@ -19,8 +19,8 @@ class MoneyProfiler
 
     public function __construct($cycles)
     {
-        $this->currency = new Currency('EUR');
         $this->cycles = $cycles;
+        $this->currency = new Currency('EUR');
     }
 
     public function execute()
@@ -61,7 +61,6 @@ class MoneyProfiler
         }
     }
 
-
     protected function profileEquals()
     {
         foreach($this->classes as $class) {
@@ -75,18 +74,5 @@ class MoneyProfiler
             }
             $this->addMessage($class, __METHOD__, $average);
         }
-    }
-
-    protected function addMessage($class, $method, $average)
-    {
-        $this->messages[] = sprintf("%s - $average", str_replace(__CLASS__, $class, $method));
-    }
-
-    /**
-     * @return array
-     */
-    public function getMessages()
-    {
-        return $this->messages;
     }
 }
