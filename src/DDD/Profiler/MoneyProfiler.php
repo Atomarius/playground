@@ -75,4 +75,20 @@ class MoneyProfiler extends Profiler
             $this->addMessage($class, __METHOD__, $average);
         }
     }
+
+    protected function profileConverTo()
+    {
+        $currency = new Currency('USD');
+        foreach($this->classes as $class) {
+            /** @var Money $instance */
+            $instance = new $class(100, $this->currency);
+            $average = 0;
+            for($i = 0; $i < $this->cycles; $i++) {
+                $start = microtime(true);
+                $instance->convertTo(1.8, $currency);
+                $average = ($average + microtime(true) - $start) / 2;
+            }
+            $this->addMessage($class, __METHOD__, $average);
+        }
+    }
 }

@@ -53,4 +53,15 @@ class Money
             $this->currency
         );
     }
+
+    /**
+     * @param float $rate
+     * @param Currency $currency
+     *
+     * @return Money
+     */
+    public function convertTo($rate, $currency)
+    {
+        return new self($this->amount * $rate, $currency);
+    }
 }
