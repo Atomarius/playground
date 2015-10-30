@@ -11,11 +11,7 @@ class MoneyProfiler extends Profiler
         '\DDD\MoneyAccessMethod\Money',
     );
 
-    private $messages = array();
-
     private $currency;
-
-    private $cycles;
 
     public function __construct($cycles)
     {
@@ -27,52 +23,48 @@ class MoneyProfiler extends Profiler
     {
         foreach (get_class_methods(__CLASS__) as $method) {
             if (strpos($method, 'profile') === 0) {
-                $this->$method();
+                foreach ($this->classes as $class) {
+                    $this->$method($class);
+                }
             }
         }
     }
 
-    protected function profileConstruct()
+    protected function profileConstruct($class)
     {
-        foreach($this->classes as $class) {
-            $average = 0;
-            for($i = 0; $i < $this->cycles; $i++) {
-                $start = microtime(true);
-                /** @var Money $instance */
-                $instance = new $class(100, $this->currency);
-                $average = ($average + microtime(true) - $start) / 2;
-            }
-            $this->addMessage($class, __METHOD__, $average);
-        }
-    }
-
-    protected function profileAdd()
-    {
-        foreach($this->classes as $class) {
+        $average = 0;
+        for ($i = 0; $i < $this->cycles; $i++) {
+            $start = microtime(true);
             /** @var Money $instance */
             $instance = new $class(100, $this->currency);
-            $average = 0;
-            for($i = 0; $i < $this->cycles; $i++) {
-                $start = microtime(true);
-                $instance->add($instance);
-                $average = ($average + microtime(true) - $start) / 2;
-            }
-            $this->addMessage($class, __METHOD__, $average);
+            $average = ($average + microtime(true) - $start) / 2;
         }
+        $this->addMessage($class, __METHOD__, $average);
     }
 
-    protected function profileEquals()
+    protected function profileAdd($class)
     {
-        foreach($this->classes as $class) {
-            /** @var Money $instance */
-            $instance = new $class(100, $this->currency);
-            $average = 0;
-            for($i = 0; $i < $this->cycles; $i++) {
-                $start = microtime(true);
-                $instance->equals($instance);
-                $average = ($average + microtime(true) - $start) / 2;
-            }
-            $this->addMessage($class, __METHOD__, $average);
+        /** @var Money $instance */
+        $instance = new $class(100, $this->currency);
+        $average = 0;
+        for ($i = 0; $i < $this->cycles; $i++) {
+            $start = microtime(true);
+            $instance->add($instance);
+            $average = ($average + microtime(true) - $start) / 2;
         }
+        $this->addMessage($class, __METHOD__, $average);
+    }
+
+    protected function profileEquals($class)
+    {
+        /** @var Money $instance */
+        $instance = new $class(100, $this->currency);
+        $average = 0;
+        for ($i = 0; $i < $this->cycles; $i++) {
+            $start = microtime(true);
+            $instance->equals($instance);
+            $average = ($average + microtime(true) - $start) / 2;
+        }
+        $this->addMessage($class, __METHOD__, $average);
     }
 }

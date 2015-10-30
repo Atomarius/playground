@@ -4,6 +4,8 @@ namespace DDD\Profiler;
 
 abstract class Profiler
 {
+    protected $cycles;
+
     /** @var array  */
     private $messages = array();
 
