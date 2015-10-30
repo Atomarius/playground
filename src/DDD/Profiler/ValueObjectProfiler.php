@@ -10,7 +10,7 @@ class ValueObjectProfiler extends Profiler
     );
 
     /** @var array */
-    private $numberOfFields = array(10, 100, 1000, 10000);
+    private $numberOfFields = array(10, 100, 1000);
 
     /**
      * @param int $cycles
@@ -25,8 +25,12 @@ class ValueObjectProfiler extends Profiler
         foreach (get_class_methods(get_class($this)) as $method) {
             if (strpos($method, 'profile') === 0) {
                 foreach ($this->numberOfFields as $fields) {
+                    $data = array();
+                    for ($i = 0; $i < $fields; $i++) {
+                        $data[$i] = $i;
+                    }
                     foreach ($this->classes as $class) {
-                        $this->$method($class, $fields);
+                        $this->$method($class, $data);
                     }
                 }
             }
@@ -35,17 +39,18 @@ class ValueObjectProfiler extends Profiler
 
     /**
      * @param string $class
-     * @param int    $fields
+     * @param array  $data
      */
-    public function profileExchangeArray($class, $fields)
+    public function profileExchangeArray($class, $data)
     {
-        $fixture = new $class($fields);
+        $instance = new $class($data);
         $average = 0;
         for ($i = 0; $i < $this->cycles; $i++) {
             $start = microtime(true);
             /** @var \DDD\ValueObject\ArrayAccess $instance */
+            $instance->exchangeArray(array());
             $average = ($average + microtime(true) - $start) / 2;
         }
-        $this->addMessage($class, __METHOD__ . "({$fields})", $average);
+        $this->addMessage($class, __METHOD__ . '(' . count($data) . ')', $average);
     }
 }

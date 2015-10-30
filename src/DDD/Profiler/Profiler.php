@@ -4,8 +4,8 @@ namespace DDD\Profiler;
 
 abstract class Profiler
 {
+    /** @var int */
     protected $cycles;
-
     /** @var array  */
     private $messages = array();
 
@@ -18,7 +18,8 @@ abstract class Profiler
      */
     protected function addMessage($class, $method, $average)
     {
-        $this->messages[] = sprintf("%s - $average", str_replace(get_class($this), $class, $method));
+        echo PHP_EOL . sprintf("%s - $average", str_replace(get_class($this), $class, $method));
+        // $this->messages[] = sprintf("%s - $average", str_replace(get_class($this), $class, $method));
     }
 
     /**

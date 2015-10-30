@@ -6,13 +6,11 @@ class ArrayAccess
     protected $data = array();
 
     /**
-     * @param int $numberOfFields
+     * @param array $data
      */
-    public function __construct($numberOfFields)
+    public function __construct($data)
     {
-        for ($i = 0; $i < $numberOfFields; $i++) {
-            $data[$i] = $i;
-        }
+        $this->data = $data;
     }
 
     /**
