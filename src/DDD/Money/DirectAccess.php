@@ -1,11 +1,12 @@
 <?php
 
-namespace DDD\MoneyNotImmutable;
+namespace DDD\Money;
 
 use DDD\Currency;
 
-class Money
+class DirectAccess
 {
+    /** @var int */
     protected $amount;
     /** @var Currency */
     protected $currency;
@@ -26,7 +27,7 @@ class Money
         return $this->currency;
     }
 
-    public static function fromMoney(Money $aMoney)
+    public static function fromMoney(DirectAccess $aMoney)
     {
         return new self($aMoney->amount, $aMoney->currency);
     }
@@ -36,20 +37,32 @@ class Money
         return new self(0, $aCurrency);
     }
 
-    public function equals(Money $money)
+    public function equals(DirectAccess $money)
     {
         return
             $money->currency->equals($this->currency) &&
             $money->amount === $this->amount;
     }
 
-    public function add(Money $money)
+    public function add(DirectAccess $money)
     {
         if (!$money->currency->equals($this->currency)) {
             throw new \InvalidArgumentException();
         }
-        $this->amount *= $money->amount;
+        return new self(
+            $money->amount + $this->amount,
+            $this->currency
+        );
+    }
 
-        return $this;
+    /**
+     * @param float $rate
+     * @param Currency $currency
+     *
+     * @return DirectAccess
+     */
+    public function convertTo($rate, $currency)
+    {
+        return new self($this->amount * $rate, $currency);
     }
 }

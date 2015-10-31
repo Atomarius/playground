@@ -1,10 +1,10 @@
 <?php
 
-namespace DDD\MoneyAccessMethod;
+namespace DDD\Money;
 
 use DDD\Currency;
 
-class Money
+class AccessMethod
 {
     private $amount;
     /** @var Currency */
@@ -36,7 +36,7 @@ class Money
         return $this->currency;
     }
 
-    public static function fromMoney(Money $aMoney)
+    public static function fromMoney(AccessMethod $aMoney)
     {
         return new self($aMoney->amount(), $aMoney->currency());
     }
@@ -46,14 +46,14 @@ class Money
         return new self(0, $aCurrency);
     }
 
-    public function equals(Money $money)
+    public function equals(AccessMethod $money)
     {
         return
             $money->currency()->equals($this->currency()) &&
             $money->amount() === $this->amount();
     }
 
-    public function add(Money $money)
+    public function add(AccessMethod $money)
     {
         if (!$money->currency()->equals($this->currency())) {
             throw new \InvalidArgumentException();
@@ -68,7 +68,7 @@ class Money
      * @param float $rate
      * @param Currency $currency
      *
-     * @return Money
+     * @return AccessMethod
      */
     public function convertTo($rate, $currency)
     {

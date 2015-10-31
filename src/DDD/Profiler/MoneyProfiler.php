@@ -7,8 +7,8 @@ use DDD\Money;
 class MoneyProfiler extends Profiler
 {
     protected $classes = array(
-        '\DDD\MoneyDirectAccess\Money',
-        '\DDD\MoneyAccessMethod\Money',
+        '\DDD\Money\DirectAccess',
+        '\DDD\Money\AccessMethod',
     );
 
     private $currency;
