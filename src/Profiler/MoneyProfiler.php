@@ -1,5 +1,5 @@
 <?php
-namespace DDD\Profiler;
+namespace Profiler;
 
 use DDD\Currency;
 use DDD\Money;

@@ -1,6 +1,6 @@
 <?php
 
-namespace DDD\Profiler;
+namespace Profiler;
 
 abstract class Profiler
 {

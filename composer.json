@@ -10,10 +10,10 @@
     }
   ],
   "autoload": {
-    "psr-0": { "DDD\\": "src/" }
+    "psr-0": { "DDD\\": "src/", "Profiler\\": "src/" }
   },
   "autoload-dev": {
-    "psr-0": { "DDD\\": "tests/" }
+    "psr-0": { "DDD\\": "tests/", "\\Profiler": "tests/" }
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0"

@@ -1,6 +1,6 @@
 <?php
 
-namespace DDD\Profiler;
+namespace Profiler;
 
 class ValueObjectProfiler extends Profiler
 {

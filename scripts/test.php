@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
-use DDD\Profiler\MoneyProfiler;
-use DDD\Profiler\ValueObjectProfiler;
+use Profiler\MoneyProfiler;
+use Profiler\ValueObjectProfiler;
 
 require __DIR__ . '/../vendor/autoload.php';
 chdir(dirname(__DIR__));
