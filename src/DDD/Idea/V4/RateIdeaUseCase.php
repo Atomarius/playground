@@ -2,7 +2,7 @@
 
 namespace DDD\Idea\V4;
 
-class RateIdeaCommand
+class RateIdeaUseCase
 {
     private $ideaRepository;
 

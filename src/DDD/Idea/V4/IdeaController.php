@@ -11,7 +11,7 @@ class IdeaController extends \Zend_Controller_Action
         $rating = $this->getRequest()->getParam('rating');
         // Building database connection
         $ideaRepository = new RedisIdeaRepository();
-        $rateIdeaCommand = new RateIdeaCommand($ideaRepository);
+        $rateIdeaCommand = new RateIdeaUseCase($ideaRepository);
         $rateIdeaCommand->execute($ideaId, $rating);
         // Redirect to view idea page
         $this->redirect('/idea/' . $ideaId);
