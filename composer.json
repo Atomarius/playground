@@ -9,6 +9,12 @@
       "email": "marius.schuette@gmail.com"
     }
   ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.zendframework.com/"
+    }
+  ],
   "autoload": {
     "psr-0": { "DDD\\": "src/", "Profiler\\": "src/" }
   },
@@ -22,5 +28,8 @@
     "post-install-cmd": [
       "chmod +x ./scripts/test.php"
     ]
+  },
+  "require": {
+    "zendframework/zendframework1": "~1.10"
   }
 }
