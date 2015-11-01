@@ -4,7 +4,7 @@ namespace DDD\Idea\V3;
 
 use DDD\Idea\Idea;
 
-class MySqlIdeaRepository implements IdeaRepository
+class MySQLIdeaRepository implements IdeaRepository
 {
     private $client;
 
