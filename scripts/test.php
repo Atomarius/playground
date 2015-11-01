@@ -1,4 +1,4 @@
-#!/usr/bin/env php
+#!/usr/bin/php
 <?php
 use Profiler\MoneyProfiler;
 use Profiler\ValueObjectProfiler;
