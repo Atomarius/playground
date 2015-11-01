@@ -30,6 +30,7 @@
     ]
   },
   "require": {
-    "zendframework/zendframework1": "~1.10"
+    "zendframework/zendframework1": "~1.10",
+    "predis/predis": "~1.0.0"
   }
 }
