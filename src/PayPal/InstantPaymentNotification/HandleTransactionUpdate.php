@@ -2,6 +2,6 @@
 
 namespace PayPal\InstantPaymentNotification;
 
-class HandlePaymentUpdate
+class HandleTransactionUpdate
 {
 }
