@@ -4,6 +4,9 @@ namespace DDD;
 
 use DDD\Currency;
 
+/**
+ * @ValueObject
+ */
 class Money
 {
     protected $amount;

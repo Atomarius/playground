@@ -1,6 +1,9 @@
 <?php
 namespace DDD;
 
+/**
+ * @ValueObject
+ */
 class Currency
 {
     const PATTERN = '/^[A-Z]{3}$/';
