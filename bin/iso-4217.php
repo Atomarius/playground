@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 $xml = simplexml_load_file('http://www.currency-iso.org/dam/downloads/lists/list_one.xml');
 $array = json_decode(json_encode($xml), true);
