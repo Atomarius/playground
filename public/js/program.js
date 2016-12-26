@@ -71,8 +71,6 @@ var sum = function () {
 
 document.writeln(sum(4,8,15,16,23,42));
 
-Function.prototype.method = function (name, func) { if (!this.prototype[name]) { this.prototype[name] = func; } return this; };
-
 Number.method('integer', function () { return Math[this < 0 ? 'ceil' : 'floor'](this); });
 document.writeln((-10 / 3).integer());
 String.method('trim', function() { return this.replace(/^\s+|\s+$/g,''); });
