@@ -14,7 +14,7 @@ var app = {
                 { data: "salary", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) }
             ],
             "buttons": [
-                "csv", "pdf"
+                "csv"
             ]
         });
     }
