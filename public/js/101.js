@@ -16,20 +16,9 @@ var app = {
                 ],
                 "buttons": [
                     "csv",
-                    app.buttons.edit
+                    "edit"
                 ]
         });
-    },
-    buttons: {
-        edit: {
-            className: 'buttons-edit buttons-html5',
-            text: function ( dt ) {
-                return dt.i18n( 'buttons.edit', 'Edit' );
-            },
-            action: function ( e, dt, button, config ) {
-                alert(JSON.stringify(dt.row('.selected').data()));
-            }
-        }
     }
 };
 

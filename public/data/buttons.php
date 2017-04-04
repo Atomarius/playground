@@ -1,2 +1,2 @@
 <?php
-echo json_encode(['csv']);
+echo json_encode(['csv', 'edit']);
