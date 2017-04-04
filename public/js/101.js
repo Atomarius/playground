@@ -1,6 +1,5 @@
 var app = {
     init: function () {
-        $.get('data/buttons.php').done(function(buttons) {
             $('#example').DataTable({
                 "dom": "Bfrtip",
                 "select": true,
@@ -17,21 +16,19 @@ var app = {
                 ],
                 "buttons": [
                     "csv",
-                    Buttons.edit
+                    app.buttons.edit
                 ]
-            });
         });
-    }
-};
-
-var Buttons = {
-    edit: {
-        className: 'buttons-edit buttons-html5',
-        text: function ( dt ) {
-            return dt.i18n( 'buttons.edit', 'Edit' );
-        },
-        action: function ( e, dt, button, config ) {
-            alert(JSON.stringify(dt.row('.selected').data()));
+    },
+    buttons: {
+        edit: {
+            className: 'buttons-edit buttons-html5',
+            text: function ( dt ) {
+                return dt.i18n( 'buttons.edit', 'Edit' );
+            },
+            action: function ( e, dt, button, config ) {
+                alert(JSON.stringify(dt.row('.selected').data()));
+            }
         }
     }
 };
