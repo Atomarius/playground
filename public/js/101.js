@@ -3,6 +3,7 @@ var app = {
         $.get('data/buttons.php').done(function(buttons) {
             $('#example').DataTable({
                 "dom": "Bfrtip",
+                "select": true,
                 "processing": true,
                 "serverSide": true,
                 "ajax": "data/api.php",
@@ -14,9 +15,24 @@ var app = {
                     { "data": "start_date" },
                     { "data": "salary", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) }
                 ],
-                "buttons": JSON.parse(buttons)
+                "buttons": [
+                    "csv",
+                    Buttons.edit
+                ]
             });
         });
+    }
+};
+
+var Buttons = {
+    edit: {
+        className: 'buttons-edit buttons-html5',
+        text: function ( dt ) {
+            return dt.i18n( 'buttons.edit', 'Edit' );
+        },
+        action: function ( e, dt, button, config ) {
+            alert(JSON.stringify(dt.row('.selected').data()));
+        }
     }
 };
 
