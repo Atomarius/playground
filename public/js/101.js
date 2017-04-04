@@ -6,10 +6,10 @@ var app = {
             "serverSide": true,
             "ajax": "data/api.php",
             columns: [
-                { data: "first_name" },
-                { data: "last_name" },
+                { data: "name" },
                 { data: "position" },
                 { data: "office" },
+                { data: "extn" },
                 { data: "start_date" },
                 { data: "salary", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) }
             ],
