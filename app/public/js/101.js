@@ -1,7 +1,11 @@
 var app = {
     init: function () {
+        $('#example').footer().each( function () {
+            var title = $(this).text();
+            $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
+        } );
             $('#example').DataTable({
-                "dom": "Bfrtip",
+                "dom": "Brtip",
                 "select": true,
                 "processing": false,
                 "serverSide": false,

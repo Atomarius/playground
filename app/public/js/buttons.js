@@ -5,11 +5,11 @@ var Editor = {
         console.log(this.formTemplate.replace('%action%', dt.ajax.url()).replace('%name%', dt.template));
     },
     inputTemplate: '<label for="%id%"></label><input type="%type%" id="%id%" value="%value%">',
-    text: function (name, value) {
-        return this.inputTemplate.replace('%type%', 'text').replace('%name%', name).replace('%value%', value);
+    text: function (id, value) {
+        return this.inputTemplate.replace('%type%', 'text').replace('%id%', id).replace('%value%', value);
     },
-    formRow: function (row) {
-        console.log(row);
+    formRow: function (dt) {
+        console.log(dt.footer());
     }
 };
 
@@ -20,7 +20,7 @@ $.fn.dataTable.ext.buttons.edit = {
         return dt.i18n('buttons.edit', 'Edit');
     },
     action: function (e, dt, button, config) {
-        Editor.formRow(dt.row('.selected'));
+        Editor.formRow(dt.footer());
     }
 };
 
