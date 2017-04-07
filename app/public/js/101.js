@@ -3,9 +3,9 @@ var app = {
             $('#example').DataTable({
                 "dom": "Bfrtip",
                 "select": true,
-                "processing": true,
-                "serverSide": true,
-                "ajax": "data/api.php",
+                "processing": false,
+                "serverSide": false,
+                "ajax": "data/api.json",
                 columns: [
                     { "data": "name" },
                     { "data": "position" },

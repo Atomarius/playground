@@ -1,5 +1,5 @@
 <?php
-$rows = json_decode(file_get_contents(__DIR__.'/arrays.json'), true);
+$rows = json_decode(file_get_contents(__DIR__ . '/arrays.json'), true);
 
 
 $data = [];
@@ -12,4 +12,4 @@ foreach ($rows['data'] as $key => $row) {
     $data[$key]["salary"]= str_replace(['$',','],['',''],$row[5]);
 }
 
-file_put_contents(__DIR__.'/api.json', json_encode(['data' => $data]));
+file_put_contents(__DIR__ . '/api.json', json_encode(['data' => $data]));
