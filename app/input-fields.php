@@ -10,5 +10,5 @@ input;
 $fields = ['Name', 'Position', 'Office', 'Extn.', 'Start date', 'Salary'];
 
 foreach ($fields as $field) {
-    echo str_replace(['%id%','%label%','%type%','%value%'], [str_replace(['.',' '],['','-'],strtolower($field)),$field,'text',$field], $template);
+    echo str_replace(['%id%','%label%','%type%','%value%'], [str_replace(['.',' '],['','_'],strtolower($field)),$field,'text',$field], $template);
 }
