@@ -7,7 +7,7 @@ var app = {
                 {name: "position"},
                 {name: "office"},
                 {name: "extn"},
-                {name: "start_date"},
+                {name: "start_date", type: "datetime"},
                 {name: "salary"}
             ]
         });
@@ -35,7 +35,8 @@ var app = {
                         return dt.i18n('buttons.edit', 'Edit');
                     },
                     action: function (e, dt, button, config) {
-                        editor.edit(dt)
+                        editor.edit(dt);
+                        console.log(dt.ajax);
                     }
                 }
             ]

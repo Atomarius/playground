@@ -1,5 +1,12 @@
 var Editor = function(config) {
+
     return {
+        ajax: {
+            url: config.ajaxUrl,
+            send: function () {
+                $.ajax(this.url)
+            }
+        },
         edit: function (dt) {
             var data = dt.row('.selected').data();
             $('form[name="%name%"]'.replace('%name%', 'example')).trigger('reset');
