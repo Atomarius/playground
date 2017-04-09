@@ -1,4 +1,10 @@
 var Editor = {
+    create: function (config) {
+        this.config = $.extend(true, {}, Editor.defaults, config);
+    },
+    init: function (dt) {
+        console.log(dt.footer());
+    },
     formTemplate: '<form action="%action%" name="%name%">%innerHtml%</form>',
     form: function (dt) {
         this.formTemplate.replace('%action%', dt.ajax.url());
@@ -13,6 +19,12 @@ var Editor = {
     }
 };
 
+Editor['defaults'] = {
+    table: null,
+    ajaxUrl: null,
+    fields: []
+};
+
 $.fn.dataTable.ext.buttons.edit = {
     extend: "selected",
     className: 'buttons-edit buttons-html5',
@@ -20,7 +32,7 @@ $.fn.dataTable.ext.buttons.edit = {
         return dt.i18n('buttons.edit', 'Edit');
     },
     action: function (e, dt, button, config) {
-        Editor.formRow(dt.footer());
+        Editor.formRow(dt);
     }
 };
 
