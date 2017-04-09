@@ -1,13 +1,24 @@
 var app = {
     init: function () {
-        var table = $('#example').DataTable({
+        var editor = new Editor({
+            'ajaxUrl': "data/api.json",
+            fields: [
+                {name: "name"},
+                {name: "position"},
+                {name: "office"},
+                {name: "extn"},
+                {name: "start_date"},
+                {name: "salary"}
+            ]
+        });
+        $('#example').DataTable({
             "dom": "Brtip",
             "select": true,
             "processing": false,
             "serverSide": false,
             "ajax": "data/api.json",
             columns: [
-                {"data": name},
+                {"data": "name"},
                 {"data": "position"},
                 {"data": "office"},
                 {"data": "extn"},
@@ -17,19 +28,17 @@ var app = {
             ],
             "buttons": [
                 "csv",
-                "edit"
+                {
+                    extend: "selected",
+                    className: 'buttons-edit buttons-html5',
+                    text: function (dt) {
+                        return dt.i18n('buttons.edit', 'Edit');
+                    },
+                    action: function (e, dt, button, config) {
+                        editor.edit(dt)
+                    }
+                }
             ]
-        });
-        var editor = Editor.create({
-            'ajaxUrl': table.ajax().url(),
-            fields: [
-                {name: "name"},
-                {name: "position"},
-                {name: "office"},
-                {name: "extn"},
-                {name: "start_date"},
-                {name: "salary"}
-                ]
         });
     }
 };
