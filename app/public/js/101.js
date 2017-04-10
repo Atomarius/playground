@@ -1,7 +1,8 @@
 var app = {
     init: function () {
         var editor = new Editor({
-            'ajaxUrl': "data/api.json",
+            'ajaxUrl': "data/api.php",
+            form: 'example',
             fields: [
                 {name: "name"},
                 {name: "position"},
@@ -14,9 +15,9 @@ var app = {
         $('#example').DataTable({
             "dom": "Brtip",
             "select": true,
-            "processing": false,
-            "serverSide": false,
-            "ajax": "data/api.json",
+            "processing": true,
+            "serverSide": true,
+            "ajax": "data/api.php",
             columns: [
                 {"data": "name"},
                 {"data": "position"},
