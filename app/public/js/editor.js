@@ -1,15 +1,8 @@
 var Editor = function(config) {
     config.form = $('form[name="%name%"]'.replace('%name%', config.form));
     config.form.attr('action', config.ajaxUrl).attr('method', 'post');
-    $('[type=submit]', config.form).click(function (e) {
-        e.preventDefault();
-        $.ajax({
-            url: config.ajaxUrl,
-            data: $(config.form).serialize(),
-            type: config.form.attr('method'),
-            success: function() {$('input', config.form).each(function(){$(this).attr('value', '')})}});
-    });
     return {
+        form: function() {return config.form},
         edit: function (dt) {
             var data = dt.row('.selected').data();
             config.form.trigger('reset');
