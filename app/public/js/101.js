@@ -45,17 +45,10 @@ var app = {
         var form = editor.form();
         $('[type=submit]', form).click(function (e) {
             e.preventDefault();
-            $.ajax({
-                url: form.attr('action'),
-                data: $(form).serialize(),
-                type: form.attr('method'),
-                success: function () {
-                    $('input', form).not('[type=submit]').each(function () {
-                        $(this).attr('value', '')
-                    });
-                    table.ajax.reload();
-                }
-            });
+            editor.form().submit().done(function () {
+                editor.form().reset();
+                table.ajax.reload();
+            }).fail(function () {alert('Fail')});
         });
     }
 };

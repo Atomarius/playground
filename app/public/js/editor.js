@@ -1,17 +1,33 @@
-var Editor = function(config) {
+var Editor = function (config) {
     config.form = $('form[name="%name%"]'.replace('%name%', config.form));
     config.form.attr('action', config.ajaxUrl).attr('method', 'post');
     return {
-        form: function() {return config.form},
+        form: function () {
+            return $.extend(!0, config.form, {
+                    submit: function () {
+                        return $.ajax({
+                            url: config.form.attr('action'),
+                            data: $(config.form).serialize(),
+                            type: config.form.attr('method')
+                        });
+                    },
+                    reset: function () {
+                        $('input', config.form).not('[type=submit]').each(function () {
+                            $(this).attr('value', '')
+                        });
+                        config.form.trigger('reset');
+                    }
+                }
+            )
+        },
         edit: function (dt) {
             var data = dt.row('.selected').data();
             config.form.trigger('reset');
-            for(var i in config.fields) {
+            for (var i in config.fields) {
                 var name = config.fields[i]['name'];
                 $('[name="%name%"]'.replace('%name%', name), config.form).attr('value', data[name]);
             }
-        },
-        delete: function () {}
+        }
     };
 };
 

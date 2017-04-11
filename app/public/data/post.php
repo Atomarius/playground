@@ -4,7 +4,9 @@ switch($_SERVER['REQUEST_METHOD']) {
     case 'POST':
         foreach ($_POST as $key => $val) {
             if ($_POST[$key] == '') {
-                header("HTTP/1.0 400 Invalid Request");
+                header("HTTP/1.1 400 Bad Request");
+                header('Content-Type: application/json');
+                echo json_encode(['error' => "{$key} empty."]);
                 die();
             }
         }
