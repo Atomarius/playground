@@ -1,7 +1,7 @@
 var app = {
     init: function () {
         var editor = new Editor({
-            'ajaxUrl': "data/post.php",
+            ajax: "data/post.php",
             form: 'example',
             fields: [
                 {name: "name"},
@@ -37,7 +37,6 @@ var app = {
                     },
                     action: function (e, dt, button, config) {
                         editor.edit(dt);
-                        console.log(dt.ajax);
                     }
                 }
             ]

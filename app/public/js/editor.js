@@ -1,12 +1,15 @@
 var Editor = function (config) {
     config.form = $('form[name="%name%"]'.replace('%name%', config.form));
-    config.form.attr('action', config.ajaxUrl).attr('method', 'post');
+    config.form.attr('action', config.ajax).attr('method', 'post');
+    for (var i in config.fields) {
+        config.fields[i] = $.extend({name: null, type: 'text'}, config.fields[i]);
+    }
     return {
         form: function () {
             return $.extend(!0, config.form, {
                     submit: function () {
                         return $.ajax({
-                            url: config.form.attr('action'),
+                            url: config.ajax,
                             data: $(config.form).serialize(),
                             type: config.form.attr('method')
                         });
