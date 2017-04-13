@@ -3,6 +3,9 @@ var Editor = function (config) {
     config.form.attr('action', config.ajax).attr('method', 'post');
     for (var i in config.fields) {
         config.fields[i] = $.extend({name: null, type: 'text'}, config.fields[i]);
+        if (config.fields[i].type == 'datetime') {
+            $('[name="%name%"]'.replace('%name%', config.fields[i].name), config.form).datepicker({dateFormat: 'yy/mm/dd'});
+        }
     }
     return {
         form: function () {
