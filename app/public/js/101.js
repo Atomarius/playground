@@ -31,7 +31,7 @@ var app = {
                 "csv",
                 {
                     extend: "selected",
-                    className: 'buttons-edit buttons-html5',
+                    className: 'btn-primary',
                     text: function (dt) {
                         return dt.i18n('buttons.edit', 'Edit');
                     },

@@ -25,11 +25,6 @@
     "phpunit/phpunit": "~4.0",
     "twbs/bootstrap": "^3.3"
   },
-  "scripts": {
-    "post-install-cmd": [
-      "chmod +x ./scripts/test.php"
-    ]
-  },
   "require": {
     "zendframework/zendframework1": "~1.10",
     "predis/predis": "~1.0.0"
