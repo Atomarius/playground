@@ -58,4 +58,10 @@ class Order
 
         return $events;
     }
+
+    public function __toString()
+    {
+        return "{$this->orderId} - {$this->status}";
+    }
+
 }
