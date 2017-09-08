@@ -8,17 +8,19 @@ use Order\PayoutWasCredited;
 include '../vendor/autoload.php';
 
 $repo = new FileSystemRepository(getcwd());
-//$order = new Order('12345');
-//$event = new OrderWasPlaced(['payload' => ['id' => '12345']], time());
-//$order->add($event);
-//$event = new PaymentWasAccepted(['payload' => ['provider' => 'PayPal']], time());
-//$repo->persist($order);
+$id = '123456789';
+$order = new Order($id);
+echo $order . PHP_EOL;
+$order->add(new OrderWasPlaced(['id' => $id, 'price' => '4.99 EUR'], time()));
+echo $order . PHP_EOL;
+$order->add(new PaymentWasAccepted(['provider' => 'PayPal', 'price' => '4.98 EUR'], time()));
+echo $order . PHP_EOL;
+$order->add(new PayoutWasCredited(['provider' => 'PayPal'], time()));
+echo $order . PHP_EOL;
+$repo->persist($order);
+$order = $repo->byId('123456789');
 
-$order = $repo->byId('12345');
+var_dump($order);
 
-echo $order . PHP_EOL;
-$order->add(new PaymentWasAccepted(['provider' => 'PayPal'], time()));
-echo $order . PHP_EOL;
-$order->add(new PayoutWasCredited(['payout' => '50 Gold Coins'], time()));
+
 //$repo->persist($order);
-echo $order . PHP_EOL;

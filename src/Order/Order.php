@@ -4,11 +4,14 @@ namespace Order;
 
 class Order
 {
+    /** @var string */
     private $orderId;
-
-    private $recordedEvents;
-
-    private $status = 'OPEN';
+    /** @var array */
+    private $recordedEvents = [];
+    /** @var string */
+    private $status;
+    /** @var string */
+    private $price;
 
     /**
      * Order constructor.
@@ -42,13 +45,11 @@ class Order
 
     private function apply(PurchaseEvent $event)
     {
-        if ($event instanceof PaymentWasAccepted) {
-            $this->status = 'PAID';
-        }
+        $handlers['OrderWasPlaced'] = function ($event) { $this->price = $event->getPrice(); $this->status = 'OPEN'; };
+        $handlers['PaymentWasAccepted'] = function ($event) { $this->status = 'PAID'; $this->price = $event->getPrice();};
+        $handlers['PayoutWasCredited'] = function ($event) { $this->status = 'CLOSED'; };
 
-        if ($event instanceof PayoutWasCredited) {
-            $this->status = 'CLOSED';
-        }
+        isset($handlers[$event->name()]) && $handlers[$event->name()]($event);
     }
 
     public function popRecordedEvents()

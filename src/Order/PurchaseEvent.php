@@ -22,6 +22,11 @@ abstract class PurchaseEvent
         $this->occurredAt = $occurredAt;
     }
 
+    public function name()
+    {
+        return $this->name;
+    }
+
     public static function fromArray($data)
     {
         $class = sprintf("%s\%s", __NAMESPACE__, $data['name']);
