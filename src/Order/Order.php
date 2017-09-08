@@ -6,11 +6,9 @@ class Order
 {
     private $orderId;
 
-    private $projection;
+    private $recordedEvents;
 
-    private $events;
-
-    private $newEvents;
+    private $status = 'OPEN';
 
     /**
      * Order constructor.
@@ -39,22 +37,25 @@ class Order
     public function add(PurchaseEvent $event)
     {
         $this->apply($event);
-        $this->newEvents[] = $event;
+        $this->recordedEvents[] = $event;
     }
 
     private function apply(PurchaseEvent $event)
     {
-        if ($event instanceof OrderWasPlaced) {
-
+        if ($event instanceof PaymentWasAccepted) {
+            $this->status = 'PAID';
         }
 
-        $this->events[] = $event;
+        if ($event instanceof PayoutWasCredited) {
+            $this->status = 'CLOSED';
+        }
     }
 
-    public function popNewEvents()
+    public function popRecordedEvents()
     {
-        $events = $this->newEvents;
-        $this->newEvents = [];
+        $events = $this->recordedEvents;
+        $this->recordedEvents = [];
+
         return $events;
     }
 }

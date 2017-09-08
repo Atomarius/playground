@@ -8,22 +8,28 @@ abstract class PurchaseEvent
 
     protected $payload;
 
-    protected $createdAt;
+    protected $occurredAt;
 
-    public function __construct($data)
+    /**
+     * @param $payload
+     * @param $occurredAt
+     */
+    public function __construct($payload, $occurredAt)
     {
-        $this->name = $data['name'];
-        $this->payload = $data['payload'];
-        $this->createdAt = $data['createdAt'];
+        $parts = explode('\\', get_class($this));
+        $this->name = array_pop($parts);
+        $this->payload = $payload;
+        $this->occurredAt = $occurredAt;
     }
 
     public static function fromArray($data)
     {
-        return new $data['name']($data);
+        $class = sprintf("%s\%s", __NAMESPACE__, $data['name']);
+        return new $class($data['payload'], $data['occurredAt']);
     }
 
     public function asArray()
     {
-        return ['name' => $this->name, 'payload' => $this->payload, 'createdAt' => $this->createdAt];
+        return ['name' => $this->name, 'payload' => $this->payload, 'occurredAt' => $this->occurredAt];
     }
 }

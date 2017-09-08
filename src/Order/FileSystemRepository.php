@@ -6,6 +6,14 @@ class FileSystemRepository implements OrderRepository
 {
     private $path;
 
+    /**
+     * @param $path
+     */
+    public function __construct($path)
+    {
+        $this->path = $path;
+    }
+
     private function filename($id)
     {
         return "{$this->path}/{$id}.order";
@@ -25,8 +33,8 @@ class FileSystemRepository implements OrderRepository
     public function persist(Order $order)
     {
         /** @var PurchaseEvent $event */
-        foreach ($order->popNewEvents() as $event) {
-            file_put_contents($this->filename($order->getId()), json_encode($event->asArray()), FILE_APPEND);
+        foreach ($order->popRecordedEvents() as $event) {
+            file_put_contents($this->filename($order->getId()), json_encode($event->asArray()).PHP_EOL, FILE_APPEND);
         }
     }
 }
