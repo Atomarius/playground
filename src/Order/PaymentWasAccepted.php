@@ -4,7 +4,7 @@ namespace Order;
 
 class PaymentWasAccepted extends PurchaseEvent
 {
-    public function getPrice()
+    public function price()
     {
         return $this->payload['price'];
     }

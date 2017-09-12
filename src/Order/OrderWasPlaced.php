@@ -4,8 +4,13 @@ namespace Order;
 
 class OrderWasPlaced extends PurchaseEvent
 {
-    public function getPrice()
+    public function orderId()
     {
-        return isset($this->payload['price']);
+        return $this->payload['id'];
+    }
+
+    public function price()
+    {
+        return $this->payload['price'];
     }
 }

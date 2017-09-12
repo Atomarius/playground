@@ -27,10 +27,10 @@ class FileSystemRepository implements OrderRepository
             $events[] = PurchaseEvent::fromArray(json_decode($event, true));
         }
 
-        return Order::fromEventStream($id, $events);
+        return Order::fromEventStream($events);
     }
 
-    public function persist(Order $order)
+    public function save(Order $order)
     {
         /** @var PurchaseEvent $event */
         foreach ($order->popRecordedEvents() as $event) {

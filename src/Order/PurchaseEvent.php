@@ -10,6 +10,8 @@ abstract class PurchaseEvent
 
     protected $occurredAt;
 
+    protected $metadata = [];
+
     /**
      * @param $payload
      * @param $occurredAt
@@ -31,6 +33,13 @@ abstract class PurchaseEvent
     {
         $class = sprintf("%s\%s", __NAMESPACE__, $data['name']);
         return new $class($data['payload'], $data['occurredAt']);
+    }
+
+    public function withVersion($version)
+    {
+        $this->metadata['version'] = $version;
+
+        return $this;
     }
 
     public function asArray()

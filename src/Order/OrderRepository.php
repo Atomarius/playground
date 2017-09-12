@@ -6,5 +6,5 @@ interface OrderRepository
 {
     public function byId($id);
 
-    public function persist(Order $order);
+    public function save(Order $order);
 }
