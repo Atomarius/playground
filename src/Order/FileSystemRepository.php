@@ -34,7 +34,7 @@ class FileSystemRepository implements OrderRepository
     {
         /** @var PurchaseEvent $event */
         foreach ($order->popRecordedEvents() as $event) {
-            file_put_contents($this->filename($order->getId()), json_encode($event->asArray()).PHP_EOL, FILE_APPEND);
+            file_put_contents($this->filename($order->id()), json_encode($event->asArray()).PHP_EOL, FILE_APPEND);
         }
     }
 }
