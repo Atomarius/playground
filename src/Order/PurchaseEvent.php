@@ -4,46 +4,44 @@ namespace Order;
 
 abstract class PurchaseEvent
 {
-    protected $name;
-
     protected $payload;
-
-    protected $occurredAt;
 
     protected $metadata = [];
 
     /**
      * @param $payload
-     * @param $occurredAt
      */
-    public function __construct($payload, $occurredAt)
+    public function __construct($payload)
     {
         $parts = explode('\\', get_class($this));
-        $this->name = array_pop($parts);
+        $this->metadata['_name'] = array_pop($parts);
         $this->payload = $payload;
-        $this->occurredAt = $occurredAt;
+        $this->metadata['_occurredAt'] = time();
     }
 
     public function name()
     {
-        return $this->name;
+        return $this->metadata['_name'];
     }
 
     public static function fromArray($data)
     {
-        $class = sprintf("%s\%s", __NAMESPACE__, $data['name']);
-        return new $class($data['payload'], $data['occurredAt']);
+        $class = sprintf("%s\%s", __NAMESPACE__, $data['metadata']['_name']);
+        $instance = new $class($data['payload']);
+        $instance->metadata = $data['metadata'];
+
+        return $instance;
     }
 
     public function withVersion($version)
     {
-        $this->metadata['version'] = $version;
+        $this->metadata['_version'] = $version;
 
         return $this;
     }
 
     public function asArray()
     {
-        return ['name' => $this->name, 'payload' => $this->payload, 'occurredAt' => $this->occurredAt];
+        return ['metadata' => $this->metadata, 'payload' => $this->payload];
     }
 }

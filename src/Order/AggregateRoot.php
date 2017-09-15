@@ -2,7 +2,7 @@
 
 namespace Order;
 
-abstract class Aggregate implements EventRecording
+abstract class AggregateRoot implements EventRecording
 {
     private $version = 0;
     private $recordedEvents = [];
@@ -13,7 +13,7 @@ abstract class Aggregate implements EventRecording
 
     /**
      * @param array $events
-     * @return Aggregate
+     * @return AggregateRoot
      */
     public static function fromEventStream(array $events)
     {
