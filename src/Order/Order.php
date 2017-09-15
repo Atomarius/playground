@@ -2,7 +2,7 @@
 
 namespace Order;
 
-class Order extends Aggregate
+class Order extends AggregateRoot
 {
     /** @var string */
     private $orderId;
@@ -10,6 +10,8 @@ class Order extends Aggregate
     private $status;
     /** @var string */
     private $price;
+    /** @var array */
+    private $payout;
 
     public function id()
     {
@@ -18,9 +20,19 @@ class Order extends Aggregate
 
     protected function apply(PurchaseEvent $event)
     {
-        $handlers['OrderWasPlaced'] = function ($event) { $this->orderId = $event->orderId(); $this->status = 'OPEN'; $this->price = $event->price(); };
-        $handlers['PaymentWasAccepted'] = function ($event) { $this->status = 'PAID'; $this->price = $event->price();};
-        $handlers['PayoutWasCredited'] = function ($event) { $this->status = 'CLOSED'; };
+        $handlers['OrderWasPlaced'] = function ($event) {
+            $this->orderId = $event->orderId();
+            $this->status = 'OPEN';
+            $this->price = $event->price();
+        };
+        $handlers['PaymentWasAccepted'] = function ($event) {
+            $this->status = 'PAID';
+            $this->price = $event->price();
+            $this->payout = $event->payout();
+        };
+        $handlers['PayoutWasCredited'] = function ($event) {
+            $this->status = 'CLOSED';
+        };
 
         isset($handlers[$event->name()]) && $handlers[$event->name()]($event);
     }
