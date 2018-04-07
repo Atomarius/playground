@@ -1,10 +1,8 @@
 #!/usr/bin/php
 <?php
-use Profiler\MoneyProfiler;
-use Profiler\ValueObjectProfiler;
-
-require __DIR__ . '/../vendor/autoload.php';
 chdir(dirname(__DIR__));
+
+require './vendor/autoload.php';
 
 foreach(glob('src/Profiler/*Profiler.php') as $file)
 {
