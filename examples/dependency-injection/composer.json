@@ -1,0 +1,15 @@
+{
+    "name": "marius/dependency-injection",
+    "authors": [
+        {
+            "name": "ElSuperbeano",
+            "email": "marius.schuette@googlemail.com"
+        }
+    ],
+    "require": {
+        "psr/container": "~1.0"
+    },
+    "autoload": {
+        "psr-4": { "": "src/" }
+    }
+}

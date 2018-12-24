@@ -1,0 +1,8 @@
+main {
+    background-color: cornflowerblue;
+}
+
+#bow {
+    background: url('../bow.png') center bottom no-repeat;
+    background-size: 100%;
+}
