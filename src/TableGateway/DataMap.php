@@ -38,9 +38,4 @@ class DataMap
     {
         return $this->config[self::updateColumns] ?? [];
     }
-
-    public function getColumn($name)
-    {
-        return $this->config['map'][$name] ?? $name;
-    }
 }

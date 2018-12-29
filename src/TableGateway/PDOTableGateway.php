@@ -41,16 +41,6 @@ class PDOTableGateway
 
     public function insert(array $params)
     {
-        $params = array_combine(
-            array_map(
-                function ($key) {
-                    return $this->dataMap->getColumn($key);
-                },
-                array_keys($params)
-            ),
-            $params
-        );
-
         $params = array_filter(
             $params,
             function ($key) {
@@ -68,16 +58,6 @@ class PDOTableGateway
 
     public function update(string $id, array $params)
     {
-        $params = array_combine(
-            array_map(
-                function ($key) {
-                    return $this->dataMap->getColumn($key);
-                },
-                array_keys($params)
-            ),
-            $params
-        );
-
         $params = array_filter(
             $params,
             function ($key) {
