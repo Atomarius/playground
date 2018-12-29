@@ -27,14 +27,16 @@ class PDOTableGateway
     {
         $columns = implode(', ', $this->dataMap->selectColumns());
         $statement = "SELECT {$columns} FROM {$this->dataMap->tableName()} WHERE {$where}";
+
         return $this->conn->query($statement)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function byId(string $id): array
     {
         $columns = implode(', ', $this->dataMap->selectColumns());
-        $stmt = $this->conn->prepare("SELECT {$columns} FROM {$this->dataMap->tableName()} WHERE id=:id");
-        $stmt->execute(['id' => $id]);
+        $pk = $this->dataMap->primaryKey();
+        $stmt = $this->conn->prepare("SELECT {$columns} FROM {$this->dataMap->tableName()} WHERE {$pk}=:{$pk}");
+        $stmt->execute([$pk => $id]);
 
         return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
@@ -44,7 +46,7 @@ class PDOTableGateway
         $params = array_filter(
             $params,
             function ($key) {
-                return in_array($key, $this->dataMap->updateColumns());
+                return in_array($key, $this->dataMap->insertColumns());
             },
             ARRAY_FILTER_USE_KEY
         );
@@ -67,8 +69,15 @@ class PDOTableGateway
         );
 
         $assignment_list = implode(', ', array_map(function ($key) { return "{$key}=:{$key}"; }, array_keys($params)));
+        $pk = $this->dataMap->primaryKey();
+        $stmt = $this->conn->prepare("UPDATE {$this->dataMap->tableName()} SET {$assignment_list} WHERE {$pk}=:{$pk}");
+        $stmt->execute(array_merge($params, [$pk => $id]));
+    }
 
-        $stmt = $this->conn->prepare("UPDATE {$this->dataMap->tableName()} SET {$assignment_list} WHERE id=:id");
-        $stmt->execute(array_merge($params, ['id' => $id]));
+    public function delete(string $id)
+    {
+        $pk = $this->dataMap->primaryKey();
+        $stmt = $this->conn->prepare("DELETE FROM {$this->dataMap->tableName()} WHERE {$pk}=:{$pk}");
+        $stmt->execute([$pk => $id]);
     }
 }

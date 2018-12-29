@@ -5,6 +5,7 @@ namespace TableGateway;
 class DataMap
 {
     const tableName = 'tableName';
+    const primaryKey = 'primaryKey';
     const insertColumns = 'insertColumns';
     const selectColumns = 'selectColumns';
     const updateColumns = 'updateColumns';
@@ -22,6 +23,11 @@ class DataMap
     public function tableName()
     {
         return $this->config[self::tableName] ?? '';
+    }
+
+    public function primaryKey()
+    {
+        return $this->config[self::primaryKey] ?? '';
     }
 
     public function insertColumns()
