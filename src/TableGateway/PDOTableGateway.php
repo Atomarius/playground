@@ -62,7 +62,7 @@ class PDOTableGateway
         $columns = implode(', ', $this->dataMap->insertColumns());
         $values = implode(', ', array_map(function ($key) { return ":{$key}"; }, array_keys($params)));
 
-        $stmt = $this->conn->prepare("INSERT INTO {$this->dataMap->tableName()} ({$columns}) VALUES {$values}");
+        $stmt = $this->conn->prepare("INSERT INTO {$this->dataMap->tableName()} ({$columns}) VALUES ({$values})");
         $stmt->execute($params);
     }
 
