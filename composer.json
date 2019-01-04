@@ -28,6 +28,7 @@
   "require": {
     "guzzlehttp/psr7": "~1.0",
     "php-di/php-di": "^5.2",
-    "mockery/mockery": "~1.0"
+    "mockery/mockery": "~1.0",
+    "doctrine/dbal": "^2.9"
   }
 }
