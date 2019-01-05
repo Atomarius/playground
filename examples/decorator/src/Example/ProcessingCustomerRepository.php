@@ -2,11 +2,6 @@
 
 namespace Example;
 
-use Example\Customer;
-use Example\CustomerId;
-use Example\CustomerRepository;
-use Example\ProcessCustomer;
-
 class ProcessingCustomerRepository implements CustomerRepository
 {
     /** @var CustomerRepository */
