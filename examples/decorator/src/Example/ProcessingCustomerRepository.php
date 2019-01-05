@@ -27,7 +27,7 @@ class ProcessingCustomerRepository implements CustomerRepository
     public function withId(CustomerId $anId): Customer
     {
         $customer = $this->customers->withId($anId);
-
+        /** @var ProcessCustomer $process */
         foreach ($this->processors as $process) {
             $process($customer);
         }
