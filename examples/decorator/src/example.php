@@ -1,19 +1,19 @@
 <?php
 
-function include_if_exists($file)
-{
-    return file_exists($file) ? include $file : false;
-}
-
-if (!include_if_exists(__DIR__ . '/../vendor/autoload.php')) {
-    echo 'You must set up the project dependencies using `composer install`' . PHP_EOL;
-    exit(1);
-}
+include __DIR__ . '/bootstrap.php';
 
 $customers = new \Example\InMemoryCustomerRepository([]);
 
-$aCustomer = new \Example\Customer(
-    new \Example\CustomerId('my-first-customer'), []
-);
+$aCustomerId = new \Example\CustomerId('my-first-customer');
+$aCustomer = new \Example\Customer($aCustomerId, []);
 
 $customers->add($aCustomer);
+
+$customers = new \Example\ProcessingCustomerRepository(
+    $customers,
+    [
+        new \Example\EchoCustomerId()
+    ]
+);
+
+$customers->withId($aCustomerId);

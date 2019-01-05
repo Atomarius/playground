@@ -1,6 +1,6 @@
 <?php
 
-namespace Example\Feature;
+namespace Example;
 
 use Example\Customer;
 use Example\CustomerId;
