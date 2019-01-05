@@ -3,7 +3,6 @@
 namespace TableGateway;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\FetchMode;
 
 class DoctrineTableGateway
 {
@@ -22,7 +21,6 @@ class DoctrineTableGateway
         $this->dataMap = $dataMap;
     }
 
-
     /**
      * @param string $where
      * @return array
@@ -34,7 +32,7 @@ class DoctrineTableGateway
             ->from($this->dataMap->tableName())
             ->where($where);
 
-        return $sql->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $sql->execute()->fetchAll();
     }
 
     public function byId(string $id): array
@@ -46,7 +44,7 @@ class DoctrineTableGateway
             ->where("{$pk}=:{$pk}")
             ->setParameters([$pk => $id]);
 
-        return $sql->execute()->fetch(FetchMode::ASSOCIATIVE);
+        return $sql->execute()->fetch();
     }
 
     public function insert(array $params)
