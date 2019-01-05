@@ -3,6 +3,7 @@
 namespace Example\Feature;
 
 use Example\Customer;
+use Example\CustomerId;
 use Example\CustomerRepository;
 use Example\CustomerRule;
 
