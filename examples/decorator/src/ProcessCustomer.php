@@ -2,7 +2,7 @@
 
 namespace Example;
 
-interface CustomerRule
+interface ProcessCustomer
 {
     public function __invoke(Customer $customer);
 }

@@ -5,31 +5,31 @@ namespace Example\Feature;
 use Example\Customer;
 use Example\CustomerId;
 use Example\CustomerRepository;
-use Example\CustomerRule;
+use Example\ProcessCustomer;
 
-class RuleApplyingCustomerRepository implements CustomerRepository
+class ProcessingCustomerRepository implements CustomerRepository
 {
     /** @var CustomerRepository */
     private $customers;
-    /** @var CustomerRule[] */
-    private $rules = [];
+    /** @var ProcessCustomer[] */
+    private $processors = [];
 
     /**
      * @param CustomerRepository $customers
-     * @param CustomerRule[] $rules
+     * @param ProcessCustomer[] $rules
      */
     public function __construct(CustomerRepository $customers, array $rules)
     {
         $this->customers = $customers;
-        $this->rules = $rules;
+        $this->processors = $rules;
     }
 
     public function withId(CustomerId $anId): Customer
     {
         $customer = $this->customers->withId($anId);
 
-        foreach ($this->rules as $applyTo) {
-            $applyTo($customer);
+        foreach ($this->processors as $process) {
+            $process($customer);
         }
 
         return $customer;
