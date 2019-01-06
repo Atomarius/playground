@@ -43,14 +43,7 @@ class PDOTableGateway
 
     public function insert(array $params)
     {
-        $params = array_filter(
-            $params,
-            function ($key) {
-                return in_array($key, $this->dataMap->insertColumns());
-            },
-            ARRAY_FILTER_USE_KEY
-        );
-
+        $params = $this->filter($params, $this->dataMap->insertColumns());
         $columns = implode(', ', $this->dataMap->insertColumns());
         $values = implode(', ', array_map(function ($key) { return ":{$key}"; }, array_keys($params)));
 
@@ -60,14 +53,7 @@ class PDOTableGateway
 
     public function update(string $id, array $params)
     {
-        $params = array_filter(
-            $params,
-            function ($key) {
-                return in_array($key, $this->dataMap->updateColumns());
-            },
-            ARRAY_FILTER_USE_KEY
-        );
-
+        $params = $this->filter($params,$this->dataMap->updateColumns());
         $assignment_list = implode(', ', array_map(function ($key) { return "{$key}=:{$key}"; }, array_keys($params)));
         $pk = $this->dataMap->primaryKey();
         $stmt = $this->conn->prepare("UPDATE {$this->dataMap->tableName()} SET {$assignment_list} WHERE {$pk}=:{$pk}");
@@ -79,5 +65,16 @@ class PDOTableGateway
         $pk = $this->dataMap->primaryKey();
         $stmt = $this->conn->prepare("DELETE FROM {$this->dataMap->tableName()} WHERE {$pk}=:{$pk}");
         $stmt->execute([$pk => $id]);
+    }
+
+    private function filter($params, $columns)
+    {
+        return array_filter(
+            $params,
+            function ($key) use ($columns) {
+                return in_array($key, $columns);
+            },
+            ARRAY_FILTER_USE_KEY
+        );
     }
 }

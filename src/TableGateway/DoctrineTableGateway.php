@@ -49,13 +49,7 @@ class DoctrineTableGateway
 
     public function insert(array $params)
     {
-        $params = array_filter(
-            $params,
-            function ($key) {
-                return in_array($key, $this->dataMap->insertColumns());
-            },
-            ARRAY_FILTER_USE_KEY
-        );
+        $params = $this->filter($params, $this->dataMap->insertColumns());
         $values = array_reduce(array_keys($params), function (array $carry, $key) { $carry[$key] = ":{$key}"; }, []);
         $sql = $this->connection->createQueryBuilder();
         $sql->insert($this->dataMap->tableName())->values($values);
@@ -65,13 +59,7 @@ class DoctrineTableGateway
 
     public function update(string $id, array $params)
     {
-        $params = array_filter(
-            $params,
-            function ($key) {
-                return in_array($key, $this->dataMap->updateColumns());
-            },
-            ARRAY_FILTER_USE_KEY
-        );
+        $params = $this->filter($params, $this->dataMap->updateColumns());
         $pk = $this->dataMap->primaryKey();
         $sql = $this->connection->createQueryBuilder();
         $sql->update($this->dataMap->tableName());
@@ -89,5 +77,16 @@ class DoctrineTableGateway
         $sql = $this->connection->createQueryBuilder();
         $sql->delete($this->dataMap->tableName())->where("{$pk}=:{$pk}")->setParameters([$pk => $id]);
         $sql->execute();
+    }
+
+    private function filter($params, $columns)
+    {
+        return array_filter(
+            $params,
+            function ($key) use ($columns) {
+                return in_array($key, $columns);
+            },
+            ARRAY_FILTER_USE_KEY
+        );
     }
 }
